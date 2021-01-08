@@ -1,0 +1,62 @@
+{
+  "name": "",
+  "namespace": "default",
+  "database": "",
+  "connectionUrl": "",
+  "connectionUsername": "",
+  "connectionPassword": null,
+  "description": "",
+  "typeName": "oracle",
+  "tableNames": [],
+  "authenticationType": "",
+  "cluster": "local",
+  "tablesSchema": {},
+  "tablesCache": {},
+  "tablesEagerCache": {},
+  "tablesAutoRefresh": {},
+  "tablesAlias": {},
+  "tablesDescription": {},
+  "tablesTags": {},
+  "storageLevel": {},
+  "userSubscription": "",
+  "serviceSubscription": "",
+  "isAuthorizationEnabled": false,
+  "enableQueryCache": false,
+  "connectorCacheEnabled": false,
+  "shouldUpdateTree": false,
+  "specificColumns": {
+    "storageLevel": {},
+    "partitionColumn": {},
+    "partitionCount": {},
+    "partitionColumnsList": {}
+  },
+  "fetchSize": {},
+  "partitionSize": {},
+  "queryTimeout": {},
+  "adSubscriptions": {},
+  "authenticationRadios": [{
+    "realValue": "anonymous_with_impersonation",
+    "displayValue": "Anonymous with Impersonation"
+  }, {
+    "realValue": "basic_with_impersonation",
+    "displayValue": "Conduit Authentication with Impersonation"
+  }, {
+    "realValue": "active_directory_with_impersonation",
+    "displayValue": "Active Directory with Impersonation"
+  }, {
+    "realValue": "basic_pass_through",
+    "displayValue": "User Credentials Pass Through"
+  }],
+  "displayName": "Oracle",
+  "databaseValue": {
+    "value": true,
+    "validators": []
+  },
+  "selection": null,
+  "dataSourceConnection": {
+    "database": "",
+    "connectionUrl": "",
+    "connectionUsername": "",
+    "connectionPassword": ""
+  }
+}
