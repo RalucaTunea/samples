@@ -1,0 +1,10 @@
+{
+  "name": "None",
+  "namespace": "default",
+  "description": "Description",
+  "connectionUrl": "None",
+  "connectionUsername": "None",
+  "connectionPassword": "None",
+  "authenticationType": "anonymous_with_impersonation",
+  "subscriptionId": ""
+}
