@@ -3,7 +3,7 @@ package com.conduit.sample.services;
 import com.conduit.sample.api.ApiClient;
 import com.conduit.sample.api.requests.LoginRequest;
 import com.conduit.sample.api.responses.LoginResponse;
-import com.conduit.sample.utils.Roots;
+import com.conduit.sample.utils.Routes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,12 +17,12 @@ public class ConduitAuthenticationService<T> {
         this.client = client;
     }
 
-    public void authntication(String email, String password) {
+    public void authentication(String email, String password) {
         LoginRequest loginRequest = new LoginRequest(email, password);
         loginRequest.createPayload();
         LoginResponse<T> loginResponse = new LoginResponse();
         try {
-            client.authenticate(loginRequest, Roots.auth, loginResponse);
+            client.authenticate(loginRequest, Routes.auth, loginResponse);
             String token = (String) loginResponse.getToken();
             client.setToken(token);
             assertTrue(loginResponse.getStatus().equals("HTTP/1.1 200 OK"));

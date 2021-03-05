@@ -38,3 +38,7 @@ class OracleConnector(Connector):
         data = data.connector_info_request(list_selected_tables)
         oracle_response = post_request(url_root + '/api/metadata/datasources', data)
         logging.debug(oracle_response.status_code)
+
+    def ad_token(self, token):
+        self.conduit_api.set_token(token)
+

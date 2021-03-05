@@ -24,14 +24,25 @@ namespace conduit_sample_app
         static void Main(string[] args)
         {   
             app_config appConfig = new app_config(); 
-
-            //authentication request 
+        
+    
             api_client apiClient = api_client.getInstance();
             LoginService loginService = new LoginService();
-            response_interface loginResponse = loginService.login(appConfig.getEmail(), appConfig.getPassword());
+            response_interface loginResponse;
+
+            if (appConfig.getToken() != "")
+            { 
+                //authentication request AD mode
+                loginResponse = loginService.login(appConfig.getToken());
+                logger.Info("Display status for login: {}", loginResponse.status);
+                Assert.Equal("OK", loginResponse.status);
+            }
+            else{
+            //authentication request 
+            loginResponse = loginService.login(appConfig.getEmail(), appConfig.getPassword());
             logger.Info("Display status for login: {}", loginResponse.status);
             Assert.Equal("OK", loginResponse.status);
-
+            }
             //database request
             db_service dbService = new db_service();
             dbService.setDBRequest(appConfig.getConnectionUsername(), appConfig.getPassword(), appConfig.getConnectorName(), appConfig.getConnectionUrl(), appConfig.getAuthenicationType());
@@ -53,7 +64,7 @@ namespace conduit_sample_app
 
             //REST QUERY
             rest_query_service requestQueryService = new rest_query_service();
-            requestQueryService.executeRestQueries(appConfig.getConnectorName(), appConfig.getTableName());
+            requestQueryService.executeRestQueries(appConfig.getConnectorName(), appConfig.getTableName(), appConfig.getTypeName());
         }
     }
 }

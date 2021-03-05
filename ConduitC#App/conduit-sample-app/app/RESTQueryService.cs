@@ -49,18 +49,34 @@ namespace service
             executeQueryRequest.createPayload();
             create_response createConnectorResponse = new create_response();
             var task = Task.Run(() => api_client.post(executeQueryRequest, route.queryURL, response));
-            logger.Info(task.Result.ToString());
+            logger.Info("Response from query request\n"+task.Result.ToString());
             return task.Result;
         }
-        public void executeRestQueries(string connectorName, string tableName)
+
+        public response_interface getResult(request_interface executeQueryRequest, response_interface response, string queryId)
+        {
+            var task = Task.Run(() => api_client.get(executeQueryRequest, route.queryURL + queryId + "result", response));
+            logger.Info("Response from result request\n"+task.Result.ToString());
+            return task.Result;
+        }
+        public void executeRestQueries(string connectorName, string tableName,string connectorType)
         {
             RESTQueryService restQueryService = new RESTQueryService();
             response_interface metadata = restQueryService.getQueryMetadata();
             logger.Info("Display metadata " + metadata.status);
             execute_query_reponse executeQueryResponse = new execute_query_reponse();
-            execute_query_request executeQueryRequest = new execute_query_request("oracle", connectorName, tableName);
-            logger.Info(restQueryService.isValidConnectorName((query_metadata_response)metadata, connectorName, "oracle"));
-            restQueryService.executeQuery(executeQueryRequest, executeQueryResponse);
+            execute_query_request executeQueryRequest = new execute_query_request(connectorType, connectorName, tableName);
+            logger.Info(restQueryService.isValidConnectorName((query_metadata_response)metadata, connectorName, connectorType));
+            execute_query_reponse resultQuery = (execute_query_reponse)restQueryService.executeQuery(executeQueryRequest, executeQueryResponse);
+            
+            string queryId = resultQuery.jsonObject.GetValue("queryId").ToString();
+            string status = resultQuery.jsonObject.GetValue("status").ToString();
+
+            while (string.Equals(status,"Running"))
+            {
+                execute_query_reponse result = (execute_query_reponse)restQueryService.getResult(null, executeQueryResponse, queryId);
+                status = result.jsonObject.GetValue("status").ToString();
+            }
         }
     }
 }

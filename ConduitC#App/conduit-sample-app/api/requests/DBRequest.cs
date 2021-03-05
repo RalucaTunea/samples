@@ -1,5 +1,8 @@
+using System;
 using System.Text;
 using System.Net.Http;
+
+using System.Collections.Generic;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -16,7 +19,7 @@ namespace request
         public string authenticationType { get; set; }
         public string subscriptionId { get; set; } = "";
         public StringContent payload { get; set; }
-
+    
         public DBRequest(string connectionUsernameValue, string connectionPasswordValue, string nameValue, string urlValue, string authenticationTypeValue)
         {
             name = nameValue;
@@ -34,6 +37,7 @@ namespace request
             string chryptedConnectionPassword = System.Convert.ToBase64String(plainTextBytes);
             obj.Remove("connectionPassword");
             obj.Add("connectionPassword", chryptedConnectionPassword);
+            obj.Add("parquetPartitionColumns",JObject.FromObject(new Dictionary<string, Object>()));
             payload = new StringContent(obj.ToString(), Encoding.UTF8, "application/json");
 
             return payload;
@@ -47,7 +51,7 @@ namespace request
            ", connectionUsername='" + connectionUsername + '\'' +
            ", connectionPassword='" + connectionPassword + '\'' +
            ", connectionUrl='" + connectionUrl + '\'' +
-           ", authenticationType='" + authenticationType + "}";
+           ", authenticationType='" + authenticationType + "}" + '\'' ;
         }
     }
 }

@@ -5,7 +5,7 @@ import com.conduit.sample.api.requests.CreateConnectorRequest;
 import com.conduit.sample.api.requests.DBRequest;
 import com.conduit.sample.api.responses.CreateConnectorResponse;
 import com.conduit.sample.api.responses.ExistingConectorResponse;
-import com.conduit.sample.utils.Roots;
+import com.conduit.sample.utils.Routes;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +26,7 @@ public class ConduitConnectorService<T, T1, T2> {
     public <T> T createConnector() {
         CreateConnectorResponse<T> createConnectorResponse = new CreateConnectorResponse();
         try {
-            return (T) client.post(createConnectorRequest, Roots.metadataDatasource, createConnectorResponse);
+            return (T) client.post(createConnectorRequest, Routes.metadataDatasource, createConnectorResponse);
         } catch (Exception e) {
             LOGGER.warn("Connector can not be created");
         }
@@ -46,7 +46,7 @@ public class ConduitConnectorService<T, T1, T2> {
     public boolean verifyIsUniqueConnectorName(String name) {
         ExistingConectorResponse<T2> existingConectorResponse = new ExistingConectorResponse();
         try {
-            List<String> response = (List<String>) client.get(null, Roots.metadataDatasourceNames, existingConectorResponse);
+            List<String> response = (List<String>) client.get(null, Routes.metadataDatasourceNames, existingConectorResponse);
             if (!response.contains(name)) {
                 return true;
             }

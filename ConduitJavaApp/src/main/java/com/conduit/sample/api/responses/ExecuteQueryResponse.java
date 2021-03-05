@@ -15,6 +15,8 @@ public class ExecuteQueryResponse<T> implements IResponse<T> {
     private static final Logger LOGGER = LoggerFactory.getLogger(ExecuteQueryResponse.class);
 
     private T jsonObject;
+    private String idQuery;
+    private String status;
 
     @Override
     public T parseResponse(HttpResponse response) throws JsonProcessingException {
@@ -23,6 +25,8 @@ public class ExecuteQueryResponse<T> implements IResponse<T> {
             try {
                 String result = EntityUtils.toString(entity);
                 jsonObject = (T) (new JSONObject(result));
+                idQuery = (new JSONObject(result)).get("queryId").toString();
+                status = (new JSONObject(result)).get("status").toString();
                 return jsonObject;
             } catch (IOException e) {
                 LOGGER.warn("Entity may not be null");
@@ -31,10 +35,20 @@ public class ExecuteQueryResponse<T> implements IResponse<T> {
         return null;
     }
 
+    public String getIdQuery() {
+        return idQuery;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
     @Override
     public String toString() {
         return "ExecuteQueryResponse{" +
                 "jsonObject=" + jsonObject +
+                "idQuery=" + idQuery +
+                "status=" + status +
                 '}';
     }
 }

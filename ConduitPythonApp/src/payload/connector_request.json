@@ -17,6 +17,7 @@
   "tablesAlias": {},
   "tablesDescription": {},
   "tablesTags": {},
+  "parquetPartitionColumns": {},
   "storageLevel": {},
   "userSubscription": "",
   "serviceSubscription": "",

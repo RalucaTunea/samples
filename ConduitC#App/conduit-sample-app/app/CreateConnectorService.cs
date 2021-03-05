@@ -48,6 +48,10 @@ namespace service
 
             connector.setColumns(response, tablesname, "COLUMNS");
 
+            connector.setColumns(response, tablesname, "PARQUET_PARTITION_COLUMNS_LIST");
+
+            connector.setParquetPartitionColumn(tablesname);
+
             connector.setSpecificColumns(tablesname, response, partitionCount);
 
             connector.setAuthenticationRadios();

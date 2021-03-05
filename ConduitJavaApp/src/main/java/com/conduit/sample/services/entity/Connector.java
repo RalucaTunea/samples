@@ -36,10 +36,19 @@ public class Connector {
     private Map<String, String> queryTimeout = Collections.emptyMap();
     private Map<String, String> adSubscriptions = Collections.emptyMap();
     private List<Map<String, String>> authenticationRadios = new ArrayList<>();
+    private Map<String, Object> parquetPartitionColumns = new HashMap<>();
     private String displayName = "Oracle";
     private Map<String, Object> databaseValue = new HashMap<>();
     private String selection = null;
     private Map<String, String> dataSourceConnection = new HashMap<>();
+
+    public Map<String, Object> getParquetPartitionColumns() {
+        return parquetPartitionColumns;
+    }
+
+    public void setParquetPartitionColumns(Map<String, Object> parquetPartitionColumns) {
+        this.parquetPartitionColumns = parquetPartitionColumns;
+    }
 
     public String getName() {
         return name;
@@ -345,7 +354,6 @@ public class Connector {
         authenticationRadios.add(active_directory_with_impersonation);
         authenticationRadios.add(basic_pass_through);
 
-
     }
 
     public String getDisplayName() {
@@ -428,8 +436,7 @@ public class Connector {
                 ", databaseValue=" + databaseValue +
                 ", selection='" + selection + '\'' +
                 ", dataSourceConnection=" + dataSourceConnection +
+                ", parquetPartitionColumns=" + parquetPartitionColumns +
                 '}';
     }
-
-
 }

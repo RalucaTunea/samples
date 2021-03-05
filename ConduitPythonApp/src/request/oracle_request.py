@@ -50,7 +50,7 @@ class OracleReq(Connector):
         dict_of_partition_column = dict()
         for table_name in list_selected_tables:
             dict_of_partition_column[table_name] = self.get_partition_column_from_oracle_response(table_name)
-
+        data['parquetPartitionColumns'] = self.set_parquet_partition_columns(list_selected_tables)
         data['storageLevel'] = self.set_storage_level(list_selected_tables)
         data['specificColumns']['storageLevel'] = self.set_storage_level(list_selected_tables)
         data['specificColumns']['partitionColumn'] = self.set_partition_column(list_selected_tables)
@@ -116,3 +116,9 @@ class OracleReq(Connector):
         for element in options:
             dict_partition_column[element] = ''
         return dict_partition_column
+
+    def set_parquet_partition_columns(self, options):
+        dict_parquet_partition_column = dict()
+        for element in options:
+            dict_parquet_partition_column[element] = []
+        return dict_parquet_partition_column

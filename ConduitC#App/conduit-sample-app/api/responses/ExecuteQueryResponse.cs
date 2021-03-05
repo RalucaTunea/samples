@@ -28,5 +28,10 @@ namespace response
         {
             return "ExecuteQueryRequest response {" + jsonObject + "}";
         }
+        
+        public JObject getJResult(){
+            return jsonObject;
+        }
+
     }
 }

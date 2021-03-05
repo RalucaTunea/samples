@@ -45,6 +45,8 @@ namespace request
         public Dictionary<string, string> partitionSize { get; set; } = new Dictionary<string, string>();
         public Dictionary<string, string> queryTimeout { get; set; } = new Dictionary<string, string>();
         public Dictionary<string, string> adSubscriptions { get; set; } = new Dictionary<string, string>();
+        public Dictionary<string, List<String>> parquetPartitionColumns = new Dictionary<string, List<String>>();
+        public Dictionary<string, Object> parquetPartitionColumnsList = new Dictionary<string, Object>();
         public List<Dictionary<string, string>> authenticationRadios { get; set; } = new List<Dictionary<string, string>>();
         public string displayName { get; set; } = "Oracle";
         public Dictionary<string, Object> databaseValue { get; set; } = new Dictionary<string, Object>();
@@ -84,6 +86,8 @@ namespace request
             json["partitionSize"] = JObject.FromObject(partitionSize);
             json["queryTimeout"] = JObject.FromObject(queryTimeout);
             json["adSubscriptions"] = JObject.FromObject(adSubscriptions);
+            json["parquetPartitionColumns"] = JObject.FromObject(parquetPartitionColumns);
+            json["parquetPartitionColumnsList"] = JObject.FromObject(parquetPartitionColumnsList);
             json["authenticationRadios"] = JArray.FromObject(authenticationRadios);
             json.displayName = displayName;
             json["databaseValue"] = JObject.FromObject(databaseValue);
@@ -121,10 +125,15 @@ namespace request
                                 JArray cols = JArray.Parse(JsonConvert.SerializeObject(objTable.GetValue("partitionColumns")));
                                 partitionColumnsList.Add(table, cols);
                             }
+                            else if (requestParameter.ToUpper().Equals("PARQUET_PARTITION_COLUMNS_LIST"))
+                            {
+                                JArray cols = JArray.Parse(JsonConvert.SerializeObject(objTable.GetValue("parquetPartitionColumnsList")));
+                                this.parquetPartitionColumnsList.Add(table, cols);
+                            }
                         }
                     }
                 }
-            }
+            } 
             if (requestParameter.ToUpper().Equals("PARTITION_COLUMNS"))
                 this.specificColumns.Add("partitionColumnsList", partitionColumnsList);
         }
@@ -148,6 +157,15 @@ namespace request
                 partitionColumn.Add(tablename, "");
             }
             this.specificColumns.Add("partitionColumn", partitionColumn);
+        }
+
+        public void setParquetPartitionColumn(List<String> tablesname)
+        {
+            Dictionary<string, List<String>> partitionColumn = new Dictionary<string, List<String>>();
+            foreach (string tablename in tablesname)
+            {
+                this.parquetPartitionColumns.Add(tablename, new List<String>());
+            }
         }
 
         public void setPartitionCount(List<String> tablesname, int partitionCountNr)

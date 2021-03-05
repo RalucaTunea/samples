@@ -8,14 +8,14 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 class QueryApi:
     def __init__(self):
-        self.conduit_host_domain = "localhost"
-        self.conduit_endpoint_port = "10002"
+        self.conduit_host_domain = os.getenv("HOST")
+        self.conduit_endpoint_port = os.getenv("PORT")
 
     def get_query_api(self, sql, username="", password=""):
         DIR = os.getcwd() + '/lib/'
 
         jarfile = DIR + "conduit_utils.jar"
-        endpoint = "jdbc:hive2://{}:{}/;transportMode=http;httpPath=cliservice".format(
+        endpoint = "jdbc:hive2://{}:{}/;transportMode=http;httpPath=cliservice;ssl=true".format(
             self.conduit_host_domain, self.conduit_endpoint_port
         )
         args = ("org.apache.hive.jdbc.HiveDriver", endpoint, [username, password])

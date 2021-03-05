@@ -13,7 +13,6 @@ public class LoginRequest implements IRequest {
         return jsonObject;
     }
 
-
     public LoginRequest(String email, String password) {
         this.email = email;
         this.password = password;

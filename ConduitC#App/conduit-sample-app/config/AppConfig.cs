@@ -20,6 +20,8 @@ namespace config
         private Boolean isAuthorizationEnabled;
         private string tableName;
         private string connectorName;
+        private string token;
+        static string environment;
 
         public AppConfig()
         {
@@ -35,6 +37,8 @@ namespace config
             isAuthorizationEnabled = Boolean.Parse(getConfig("IS_AUTHORIZATION_ENABLED"));
             tableName = getConfig("TABLE_NAME");
             connectorName = getConfig("CONNECTOR_NAME");
+            token = getConfig("TOKEN");
+            environment = getConfig("ENVIRONMENT");
         }
 
         public string getEmail()
@@ -97,6 +101,13 @@ namespace config
             return connectorName;
         }
 
+        public string getToken(){
+            return token;
+        }
+
+        public static string getEnvironment(){
+            return environment;
+        }
         public static String getConfig(String config)
         {
             String configValue = Environment.GetEnvironmentVariable(config);

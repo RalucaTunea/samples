@@ -23,14 +23,17 @@ class ConnectorService:
         datasource = DataSource(connection_name, connection_url, description)
         return datasource
 
-    def set_connector(self, username, password, connection_username, connection_password, authentication_type, name,
+    def set_connector(self, username, password, token, connection_username, connection_password, authentication_type,
+                      name,
                       url, description):
         user = User(username, password)
         authentication = Authentication(connection_username, connection_password, authentication_type, '')
         oracle_connector = set_connector_type('ORACLE', user, authentication, self.conduit_api,
                                               self.create_datasource(name, url, description))
-
-        oracle_connector.login()
+        if token == None:
+            oracle_connector.login()
+        else:
+            oracle_connector.ad_token(token)
 
         if oracle_connector.get_token() is None:
             logging.error('Invalid Token')

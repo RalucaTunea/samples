@@ -11,7 +11,6 @@ namespace response
     public class LoginResponse : IResponse
     {
         public string token { get; set; }
-
         public string status { get; set; }
         private static Logger logger = LogManager.GetCurrentClassLogger();
         public IResponse parseResponse(HttpResponseMessage responseRequest)
@@ -35,7 +34,10 @@ namespace response
             return
                 "Login Request result '{" +
                    "token='" + token + "}";
+        }
 
+        public void setToken(string authToken){
+             token = authToken;
         }
     }
 }

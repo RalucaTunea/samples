@@ -1,6 +1,7 @@
 package com.conduit.sample.services;
 
-import com.conduit.sample.utils.Roots;
+import com.conduit.sample.config.AppConfig;
+import com.conduit.sample.utils.Routes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,9 +11,9 @@ public class ConduitSqlQueryService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ConduitSqlQueryService.class);
 
     public void executeSqlQuery(String sql) throws Exception {
-        String USER = "system";
-        String PASS = "BDE_great!23";
-        String URL = Roots.databaseUrl;
+        String USER = AppConfig.getConfig("USERSQL");
+        String PASS = AppConfig.getConfig("PASSSQL");
+        String URL = Routes.databaseUrl;
 
         try {
             Class.forName("org.apache.hive.jdbc.HiveDriver");

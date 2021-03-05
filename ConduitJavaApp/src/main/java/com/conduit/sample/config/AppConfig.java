@@ -11,6 +11,7 @@ public class AppConfig {
 
     private String email;
     private String password;
+    private String tokenUser;
 
     private String authenticationType;
     private String connectionUrl;
@@ -26,9 +27,17 @@ public class AppConfig {
     private Boolean isAuthorizationEnabled;
     private String userSubscription;
 
+    private String userSQL;
+    private String passSQL;
+    private String dburl;
+
+    private String environment;
+
+
     public AppConfig() {
         this.email = AppConfig.getConfig("EMAIL");
         this.password = AppConfig.getConfig("PASSWORD");
+        this.tokenUser = AppConfig.getConfig("TOKEN");
         this.authenticationType = AppConfig.getConfig("AUTHENTICATION");
         this.connectionUrl = AppConfig.getConfig("URL");
         this.connectionUsername = AppConfig.getConfig("USERNAME");
@@ -42,6 +51,10 @@ public class AppConfig {
         this.specificColumns = Integer.parseInt(AppConfig.getConfig("SPECIFIC_COLUMNS"));
         this.isAuthorizationEnabled = Boolean.parseBoolean(AppConfig.getConfig("IS_AUTHORIZATION"));
         this.userSubscription = "";
+        this.userSQL = AppConfig.getConfig("USERSQL");
+        this.passSQL = AppConfig.getConfig("PASSSQL");
+        this.environment = AppConfig.getConfig("ENVIRONMENT");
+        this.dburl = AppConfig.getConfig("DBURL");
     }
 
     public String getEmail() {
@@ -100,11 +113,26 @@ public class AppConfig {
         return userSubscription;
     }
 
+    public String getTokenUser() {
+        return tokenUser;
+    }
+
+    public String getUserSQL() {
+        return userSQL;
+    }
+
+    public String getPassSQL() {
+        return passSQL;
+    }
+
+    public String getEnvironment() { return environment;}
+
+    public String getDburl() { return dburl; }
+
     public static String getConfig(String config) {
         String configValue = System.getProperty(config);
-        if (configValue.isEmpty()) {
+        if (configValue.isEmpty() && !config.equals("TOKEN")) {
             LOGGER.warn(config + " is null. Please insert it.");
-            System.exit(1);
         }
         return configValue;
     }

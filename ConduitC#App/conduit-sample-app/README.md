@@ -39,6 +39,6 @@ Driver = /Library/simba/spark/lib/libsparkodbc_sbu.dylib
     ```
 
 - Full command template:
-    ``` bash
-    EMAIL="email" PASSWORD="password" AUTHENTICATION_TYPE="anonymous_with_impersonation" CONNECTION_URL="url" CONNECTION_USERNAME="username" SUBSCRIPTION_ID="" TYPE_NAME="oracle"  TABLES="table1,table2" PARTITION_COUNT="4" IS_AUTHORIZATION_ENABLED="false" TABLE_NAME="table1" CONNECTOR_TYPE="oracle"  CONNECTOR_NAME="connector_name" dotnet run -p conduit-sample-app.csproj
+``` bash
+    EMAIL="email" PASSWORD="password" AUTHENTICATION_TYPE="anonymous_with_impersonation" CONNECTION_URL="url" CONNECTION_USERNAME="username" SUBSCRIPTION_ID="" TYPE_NAME="oracle"  TABLES="table1,table2" PARTITION_COUNT="4" IS_AUTHORIZATION_ENABLED="false" TABLE_NAME="table1" CONNECTOR_TYPE="connectorType"  CONNECTOR_NAME="connector_name" TOKEN="tokenValue" ENVIRONMENT="environmentValue" dotnet run -p conduit-sample-app.csproj
     ```

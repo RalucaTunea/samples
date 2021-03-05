@@ -1,5 +1,4 @@
 using System.Net.Http;
-
 using NLog;
 
 using api_client = api.ApiClient;
@@ -16,14 +15,29 @@ namespace conduit_sample_app
         private static Logger logger = LogManager.GetCurrentClassLogger();
         public response_interface login(string username, string password)
         {
+            response_interface response;
             login_response loginResponse = new login_response();
             user user = new user(username, password);
             login_request loginRequest = new login_request(user);
             StringContent payload = loginRequest.createPayload();
-
-            response_interface response = api_client.post(loginRequest, route.loginURL, loginResponse);
-
+            response = api_client.post(loginRequest, route.loginURL, loginResponse);
+            
             api_client.token = loginResponse.token;
+            
+            return response;
+        }
+
+        public response_interface login(string token)
+        {
+            response_interface response;
+          
+            login_response loginResponse = new login_response();
+            loginResponse.setToken(token);
+            response = loginResponse;
+            api_client.token = loginResponse.token;
+            loginResponse.status = "OK";
+            logger.Info("Status"+ response.status);
+            
             return response;
         }
     }

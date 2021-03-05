@@ -4,7 +4,7 @@ import com.conduit.sample.api.ApiClient;
 import com.conduit.sample.api.requests.DBRequest;
 import com.conduit.sample.api.requests.IRequest;
 import com.conduit.sample.api.responses.DBResponse;
-import com.conduit.sample.utils.Roots;
+import com.conduit.sample.utils.Routes;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +32,7 @@ public class ConduitDBRequestService<T> {
         }
         DBResponse<T> dbResponse = new DBResponse<>();
         try {
-            return client.post(dbRequest, Roots.metadataExploreOracle, dbResponse);
+            return client.post(dbRequest, Routes.metadataExploreOracle, dbResponse);
         } catch (Exception e) {
             LOGGER.warn("DB Response can not be created.");
         }

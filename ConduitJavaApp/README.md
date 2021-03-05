@@ -32,13 +32,19 @@ Remarks : App class differs from Rest class because it makes sql request using j
 #### Run
 To configure the environment variables follow next step:
 In intellij can modify using Edit Configuration for App and Rest classes, so add at VM option from configuration your values as in next example:
-   -DEMAIL=email@domain.com -DPASSWORD=password -DTABLES=table1,table2 -DAUTHENTICATION=authentication -DURL=url -DUSERNAME=system -DDESCRIPTION=description -DCONNECTOR_NAME=conne_name -DNAMESPACE=namespace -DTYPE_DATABASE=database_type -DSPECIFIC_COLUMNS=4 -DIS_AUTHORIZATION=false 
+   -DEMAIL=email@domain.com -DPASSWORD=password -DTOKEN="token" -DTABLES=table1,table2 -DAUTHENTICATION=authentication -DURL=url -DUSERNAME=system -DDESCRIPTION=description -DCONNECTOR_NAME=conne_name -DNAMESPACE=namespace -DTYPE_DATABASE=database_type -DSPECIFIC_COLUMNS=4 -DIS_AUTHORIZATION=false -DBURL="DBURL" -DENVIRONMENT="http://environment.com"
 After run we receive - INFO messages or WARNING messages
                       eg. 
                         INFO: Create Connector Response: HTTP/1.1 200 OK 
                       or 
                         WARNING: Connector already exist.
                         WARNING: Invalid username or password. Please contact your Admin.
+
+#### AD authentication
+- Will not be used token from a request using password and username. 
+- Token will be get from user.
+- In program will be used basic authentication if  this token is not give  by user throught -DTOKEN, 
+  ex : -DTOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjcmVhdGVkQXQiOm51bGwsImNyZWF0ZWRCeSI6bnVsbCwiZX"
                                                                              
 Obs: If appear   
 SLF4J: Found binding in [jar:file:/your_path/.m2/repository/org/slf4j/slf4j-log4j12/1.7.5/slf4j-log4j12-1.7.5.jar!/org/slf4j/impl/StaticLoggerBinder.class]
