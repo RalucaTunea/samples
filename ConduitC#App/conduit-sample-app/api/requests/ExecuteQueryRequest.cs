@@ -10,8 +10,8 @@ namespace request
     {
         public string queryId { get; set; } = null; 
         public string query { get; set; }
-        public int  pageNumber { get; set; } = 0;
-	    public int pageSize { get; set; } = 10;
+        public int  offset { get; set; } = 0;
+	    public int limit { get; set; } = 10;
         public string connectorType { get; set; }
         public string connectorName { get; set; }
         public string tableName { get; set; }
@@ -29,8 +29,8 @@ namespace request
             obj.Add("queryId", queryId);
             query = "SELECT * FROM " + connectorType+"_"+ connectorName+ "." + tableName;
             obj.Add("query", query);
-            obj.Add("pageNumber", pageNumber);
-            obj.Add("pageSize",pageSize);
+            obj.Add("offset", offset);
+            obj.Add("limit",limit);
             payload = new StringContent(obj.ToString(), Encoding.UTF8, "application/json");
             return payload;
         }

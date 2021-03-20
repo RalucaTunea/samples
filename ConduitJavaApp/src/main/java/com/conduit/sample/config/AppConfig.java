@@ -14,47 +14,41 @@ public class AppConfig {
     private String tokenUser;
 
     private String authenticationType;
-    private String connectionUrl;
+    private String dataSourceLocation;
     private String connectionUsername;
     private String description;
     private String connectorName;
-    private String namespace;
-    private String subscriptionId;
 
     private String typeName;
     private List<String> tables;
-    private int specificColumns;
+    private int partitionColumnsCount;
     private Boolean isAuthorizationEnabled;
-    private String userSubscription;
 
-    private String userSQL;
-    private String passSQL;
-    private String dburl;
+    private String userJDBC;
+    private String passJDBC;
+    private String jdbcUrl;
 
-    private String environment;
+    private String url;
 
 
     public AppConfig() {
         this.email = AppConfig.getConfig("EMAIL");
         this.password = AppConfig.getConfig("PASSWORD");
         this.tokenUser = AppConfig.getConfig("TOKEN");
-        this.authenticationType = AppConfig.getConfig("AUTHENTICATION");
-        this.connectionUrl = AppConfig.getConfig("URL");
+        this.authenticationType = AppConfig.getConfig("AUTHENTICATION_TYPE");
+        this.dataSourceLocation = AppConfig.getConfig("DATA_SOURCE_LOCATION");
         this.connectionUsername = AppConfig.getConfig("USERNAME");
         this.description = AppConfig.getConfig("DESCRIPTION");
         this.connectorName = AppConfig.getConfig("CONNECTOR_NAME");
-        this.namespace = AppConfig.getConfig("NAMESPACE");
-        this.subscriptionId = "";
         this.typeName = AppConfig.getConfig("TYPE_DATABASE");
         String stringTables = AppConfig.getConfig("TABLES");
         this.tables = Arrays.asList(stringTables.split(","));
-        this.specificColumns = Integer.parseInt(AppConfig.getConfig("SPECIFIC_COLUMNS"));
+        this.partitionColumnsCount = Integer.parseInt(AppConfig.getConfig("PARTITION_COLUMNS_COUNT"));
         this.isAuthorizationEnabled = Boolean.parseBoolean(AppConfig.getConfig("IS_AUTHORIZATION"));
-        this.userSubscription = "";
-        this.userSQL = AppConfig.getConfig("USERSQL");
-        this.passSQL = AppConfig.getConfig("PASSSQL");
-        this.environment = AppConfig.getConfig("ENVIRONMENT");
-        this.dburl = AppConfig.getConfig("DBURL");
+        this.userJDBC = AppConfig.getConfig("USER_JDBC");
+        this.passJDBC = AppConfig.getConfig("PASSWORD_JDBC");
+        this.url = AppConfig.getConfig("URL");
+        this.jdbcUrl = AppConfig.getConfig("JDBC_URL");
     }
 
     public String getEmail() {
@@ -69,8 +63,8 @@ public class AppConfig {
         return authenticationType;
     }
 
-    public String getConnectionUrl() {
-        return connectionUrl;
+    public String getDataSourceLocation() {
+        return dataSourceLocation;
     }
 
     public String getConnectionUsername() {
@@ -85,14 +79,6 @@ public class AppConfig {
         return connectorName;
     }
 
-    public String getNamespace() {
-        return namespace;
-    }
-
-    public String getSubscriptionId() {
-        return subscriptionId;
-    }
-
     public String getTypeName() {
         return typeName;
     }
@@ -101,16 +87,12 @@ public class AppConfig {
         return tables;
     }
 
-    public int getSpecificColumns() {
-        return specificColumns;
+    public int getPartitionColumnsCount() {
+        return partitionColumnsCount;
     }
 
     public Boolean getAuthorizationEnabled() {
         return isAuthorizationEnabled;
-    }
-
-    public String getUserSubscription() {
-        return userSubscription;
     }
 
     public String getTokenUser() {
@@ -118,16 +100,16 @@ public class AppConfig {
     }
 
     public String getUserSQL() {
-        return userSQL;
+        return userJDBC;
     }
 
     public String getPassSQL() {
-        return passSQL;
+        return passJDBC;
     }
 
-    public String getEnvironment() { return environment;}
+    public String getUrl() { return url;}
 
-    public String getDburl() { return dburl; }
+    public String getJdbcUrl() { return jdbcUrl; }
 
     public static String getConfig(String config) {
         String configValue = System.getProperty(config);

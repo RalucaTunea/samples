@@ -34,7 +34,7 @@ namespace service
             logger.Info(task.Result.ToString());
             return task.Result;
         }
-        public void setCreateConnectorRequest(response_interface response, db_request dbRequest, String typeName, List<String> tablesname, String authenticationType, int partitionCount, Boolean isAuthorizationEnabled, String userSubscription)
+        public void setCreateConnectorRequest(response_interface response, db_request dbRequest, String typeName, List<String> tablesname, String authenticationType, int partitionCount, Boolean isAuthorizationEnabled)
         {
 
             connector.name = dbRequest.name;

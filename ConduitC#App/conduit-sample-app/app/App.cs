@@ -45,7 +45,7 @@ namespace conduit_sample_app
             }
             //database request
             db_service dbService = new db_service();
-            dbService.setDBRequest(appConfig.getConnectionUsername(), appConfig.getPassword(), appConfig.getConnectorName(), appConfig.getConnectionUrl(), appConfig.getAuthenicationType());
+            dbService.setDBRequest(appConfig.getConnectionUsername(), appConfig.getPassword(), appConfig.getConnectorName(), appConfig.getDataSourceConnecion(), appConfig.getAuthenicationType());
             db_response dbResponse = (db_response)dbService.dbrequest(dbService.getDBRequest());
             logger.Info("Display status for dbRequest: {}", dbResponse.status);
             Assert.Equal("OK", dbResponse.status);
@@ -53,7 +53,7 @@ namespace conduit_sample_app
             //create request
             create_request createConnectorRequest = new create_request();
             create_service createConnectorService = new create_service(createConnectorRequest);
-            createConnectorService.setCreateConnectorRequest(dbResponse, dbService.getDBRequest(), appConfig.getTypeName(), appConfig.getTables(), appConfig.getAuthenicationType(), appConfig.getPartitionCount(), appConfig.getIsAuthorizationEnabled(), appConfig.getSubsriptionId());
+            createConnectorService.setCreateConnectorRequest(dbResponse, dbService.getDBRequest(), appConfig.getTypeName(), appConfig.getTables(), appConfig.getAuthenicationType(), appConfig.getPartitionCount(), appConfig.getIsAuthorizationEnabled());
             response_interface createResponse = createConnectorService.createRequest(createConnectorRequest, dbResponse);
             logger.Info("Display status for create request: {}", createResponse.status);
             Assert.Equal("OK", createResponse.status);

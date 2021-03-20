@@ -33,9 +33,9 @@ public class ConduitConnectorService<T, T1, T2> {
         return null;
     }
 
-    public void setCreateConnectorRequest(T1 response, DBRequest dbRequest, String typeName, List<String> tablesname, String authenticationType, int specificColumns, Boolean isAuthorizationEnabled, String userSubscription) {
+    public void setCreateConnectorRequest(T1 response, DBRequest dbRequest, String typeName, List<String> tablesname, String authenticationType, int specificColumns, Boolean isAuthorizationEnabled) {
         try {
-            createConnectorRequest.setCreateConnectorRequest(response, dbRequest, typeName, tablesname, authenticationType, specificColumns, isAuthorizationEnabled, userSubscription);
+            createConnectorRequest.setCreateConnectorRequest(response, dbRequest, typeName, tablesname, authenticationType, specificColumns, isAuthorizationEnabled);
         } catch (JsonProcessingException e) {
             LOGGER.warn("Connector's fields can not be cast in json format");
         } catch (NullPointerException e) {

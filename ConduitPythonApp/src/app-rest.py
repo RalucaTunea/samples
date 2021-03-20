@@ -16,7 +16,7 @@ class Main:
     conn_password = os.getenv('PASS')
     auth_type = os.getenv('AUTH_TYPE')
     name = os.getenv('CONNECTOR_NAME')
-    url = os.getenv('URL')
+    url = os.getenv('DATA_SOURCE_LOCATION')
     table_name = [os.getenv('TABLE_NAME')]
     description = ''
     connector_service = ConnectorService()

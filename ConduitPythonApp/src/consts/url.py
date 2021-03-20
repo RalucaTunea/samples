@@ -1,7 +1,7 @@
 import os
 
 __all__ = [
-    'url_root'
+    'url'
     ]
 
-url_root = os.getenv('URL_ROOT')
+url = os.getenv('URL')

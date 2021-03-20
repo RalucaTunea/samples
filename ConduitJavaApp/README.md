@@ -1,53 +1,73 @@
-#### Project Setup  
-
-We need as conduit server to be in run mode.
-Infos about how to set up server of conduit or how to run it, please see bde/README.md
-
-#### Packages
-
-[>> api](./main/java/com/conduit/sample/api) - it has REST API request (response and request)
+### Java Conduit Sample App
+#### Project structure
+[>> api](./src/main/java/com/conduit/sample/api) - contains all requests and responses for the and from the API
     - response folder has responses from login, database and create connector
     - request folder has requests from login, database and create connector
     - ApiClient has - REST API methods (eg. post, get) 
-                    - method for authentication - using SSLConnectionSocketFactory for certificate
-
-[>> services](./main/java/com/conduit/sample/services) - it has entity folder and service class
+                    - method for authentication - using SSLConnectionSocketFactory for handling SSL certificate
+[>> services](./src/main/java/com/conduit/sample/services) - contains the Service classes used to interact with the Conduit API alongside entity's which are used to abstract Conduit internal structures
     - entity folder has -> Connector class, which is connector structure used in CreateConnectorRequest class to create an object to json 
                         -> ExploreRequest, which is database response's structure, it is used in DBResponse class to create response 
                         from json format in object format
-    - service class (CreateConnectorService and DBRequestService) in these services -> use Request and Response instance, which are
-                                                                  necessary for call API request method (e.g post)
-                                                                                   -> set Request  
-
-[>> config](./main/java/com/conduit/sample/config) - it has AppConfig class  manages the user inputs from terminal
-
-App class is main class - sets info from user
-                        - calls commands for login, database request which is used to create connector request, and perform a sql query 
-
-Rest class is main class - sets info from user
-                         - calls commands for login, database request which is used to create connector request, and use REST request to perform sql query  
-
-Remarks : App class differs from Rest class because it makes sql request using jdbc, and  Rest class uses REST request to perform queries           
-
-#### Run
-To configure the environment variables follow next step:
-In intellij can modify using Edit Configuration for App and Rest classes, so add at VM option from configuration your values as in next example:
-   -DEMAIL=email@domain.com -DPASSWORD=password -DTOKEN="token" -DTABLES=table1,table2 -DAUTHENTICATION=authentication -DURL=url -DUSERNAME=system -DDESCRIPTION=description -DCONNECTOR_NAME=conne_name -DNAMESPACE=namespace -DTYPE_DATABASE=database_type -DSPECIFIC_COLUMNS=4 -DIS_AUTHORIZATION=false -DBURL="DBURL" -DENVIRONMENT="http://environment.com"
-After run we receive - INFO messages or WARNING messages
-                      eg. 
-                        INFO: Create Connector Response: HTTP/1.1 200 OK 
-                      or 
-                        WARNING: Connector already exist.
-                        WARNING: Invalid username or password. Please contact your Admin.
-
+    - service classes (CreateConnectorService and DBRequestService) used to interact with the API using the Requests and ApiClient
+[>> config](./src/main/java/com/conduit/sample/config) - contains the AppConfig class  which manages the user input from terminal
+#### Main elements of the App
+There are two App classes in the project (JDBCApp and RESTApp). Both of them are executing the same Conduit interaction, the difference being the medium they use to execute it. Both apps:
+                        - configure the sample based on user input
+                        - execute the entire flow (login, db requests, connector creation, connector querying)
+The JDBCApp class is the main JDBC class, it:
+                        - achieves Conduit interaction by making use of the JDBC endpoint offered by Conduit
+The RESTApp class is the main REST API class, it:
+                        - achieves Conduit interaction by making use of Conduit's REST API
+#### Running
+In order to run either app we need to configure ENV Variables. The environment variables used to run are:
+- EMAIL - used for logging in with a Conduit user
+  <br/>e.g EMAIL=mail@bpcs.com
+- PASSWORD - password for the Conduit user
+  <br/>e.g PASSWORD=mypassword
+- TOKEN - AD user Access Token
+  <br/>e.g TOKEN=yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjcmVhdGVk98698Om51bGwsImNyZWF0ZWRCeSI6bnVsb344gc
+- TABLES - database's tables
+  <br/>e.g TABLES=TABLE1,TABLE2
+- AUTHENTICATION_TYPE - authentication type
+  <br/>e.g AUTHENTICATION_TYPE=anonymous_with_impersonation
+- DATA_SOURCE_LOCATION - date set location when create a connector
+  <br/>e.g DATA_SOURCE_LOCATION=localhost:1400/databaseName
+- USERNAME - database's username
+  <br/>e.g USERNAME=dataSourceUserName
+- DESCRIPTION - a short connector description
+  <br/>e.g DESCRIPTION="This is a description field"
+- CONNECTOR_NAME - used to specify a name to connector
+  <br/>e.g CONNECTOR_NAME="connector_name"
+- TYPE_DATABASE - used to specify the database type 
+  <br/>e.g TYPE_DATABASE=oracle
+- PARTITION_COLUMNS_COUNT - number of partition columns
+- IS_AUTHORIZATION - Enabled or disabled authorization. 
+  <br/>e.g IS_AUTHORIZATION=false
+- JDBC_URL - used to query connector through JDBC endpoint
+  <br/>e.g JDBC_URL=jdbc:hive2://<host>:<port>/<dbName>;<sessionConfs>?<hiveConfs>#<hiveVars>
+- URL - location of the Conduit server
+  <br/>e.g URL=https://environment.com
+- DUSER_JDBC, DPASSWORD_JDBC  - credentials used to connect to JDBC
+  <br/>e.g -DUSER_JDBC=JDBCName -DPASSWORD_JDBC=JDBCPassword
+#### Logging
+Logging involves either INFO messages or WARNING messages
+**Example**
+INFO: Create Connector Response: HTTP/1.1 200 OK 
+or 
+WARNING: Connector already exist.
+WARNING: Invalid username or password. Please contact your Admin.
 #### AD authentication
-- Will not be used token from a request using password and username. 
-- Token will be get from user.
-- In program will be used basic authentication if  this token is not give  by user throught -DTOKEN, 
-  ex : -DTOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjcmVhdGVkQXQiOm51bGwsImNyZWF0ZWRCeSI6bnVsbCwiZX"
-                                                                             
-Obs: If appear   
-SLF4J: Found binding in [jar:file:/your_path/.m2/repository/org/slf4j/slf4j-log4j12/1.7.5/slf4j-log4j12-1.7.5.jar!/org/slf4j/impl/StaticLoggerBinder.class]
-SLF4J: Found binding in [jar:file:/your_path/.m2/repository/org/slf4j/slf4j-jdk14/1.7.30/slf4j-jdk14-1.7.30.jar!/org/slf4j/impl/StaticLoggerBinder.class]                                                                                              
-must give next command in terminal :
-       rm -rf ~/.m2/repository/org/slf4j/slf4j-log4j12
+When running the sample app the user has the choice to authenticate with a standard Conduit user (by giving the EMAIL and PASSWORD env variables), or with an AD user.
+The later scenario requires the access token which the user obtains by logging into the Conduit management console in a browser and copying the Access Token into the TOKEN environment variable.
+**Note:** the access token takes precedence over user/pass combo. If give all 3 environment variables the app is going to be using the Access Token.
+
+Full command template:
+``` 
+java -DEMAIL=email@bpcs.com -DPASSWORD=password -DTABLES=table1,table2 -DAUTHENTICATION_TYPE=anonymous_with_impersonation -DATA_SOURCE_LOCATION=localhost:1400/databaseName -DUSERNAME=dataSourceUserName -DDESCRIPTION=shortDescription -DCONNECTOR_NAME=connector_name -DTYPE_DATABASE=oracle -DPARTITION_COLUMNS_COUNT=4 -DIS_AUTHORIZATION=false -DTOKEN= -DUSER_JDBC=JDBCName -DPASSWORD_JDBC=JDBCPassword -DURL=https://environment.com -DJDBC_URL=jdbc:hive2://environment.com:10002/;transportMode=http;httpPath=cliservice;ssl=true com.conduit.sample.RESTApp
+```
+
+Command to use application with active directory authentication:
+```
+java -DEMAIL=email@bpcs.com -DPASSWORD=password -DTABLES=table1,table2 -DAUTHENTICATION_TYPE=anonymous_with_impersonation -DATA_SOURCE_LOCATION=localhost:1400/databaseName -DUSERNAME=dataSourceUserName -DDESCRIPTION=shortDescription -DCONNECTOR_NAME=connector_name -DTYPE_DATABASE=oracle -DPARTITION_COLUMNS_COUNT=4 -DIS_AUTHORIZATION=false -DTOKEN=yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjcmVhdGVk98698Om51bGwsImNyZWF0ZWRCeSI6bnVsb344 -DUSER_JDBC=JDBCName -DPASSWORD_JDBC=JDBCPassword -DURL=https://environment.com -DJDBC_URL=jdbc:hive2://environment.com:10002/;transportMode=http;httpPath=cliservice;ssl=true com.conduit.sample.RESTApp
+```

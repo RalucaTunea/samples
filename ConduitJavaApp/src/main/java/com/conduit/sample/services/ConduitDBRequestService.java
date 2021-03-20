@@ -39,7 +39,7 @@ public class ConduitDBRequestService<T> {
         return null;
     }
 
-    public void setDbRequest(String authenticationType, String connectionPassword, String connectionUrl, String connectionUsername, String description, String name, String namespace, String subscriptionId) {
+    public void setDbRequest(String authenticationType, String connectionPassword, String connectionUrl, String connectionUsername, String description, String name) {
         try {
             dbRequest.setAuthenticationType(authenticationType);
             dbRequest.setConnectionPassword(connectionPassword);
@@ -47,7 +47,6 @@ public class ConduitDBRequestService<T> {
             dbRequest.setConnectionUsername(connectionUsername);
             dbRequest.setDescription(description);
             dbRequest.setName(name);
-            dbRequest.setSubscriptionId(subscriptionId);
 
         } catch (Exception e) {
             e.printStackTrace();

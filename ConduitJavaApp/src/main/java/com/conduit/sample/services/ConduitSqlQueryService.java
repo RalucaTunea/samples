@@ -11,8 +11,8 @@ public class ConduitSqlQueryService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ConduitSqlQueryService.class);
 
     public void executeSqlQuery(String sql) throws Exception {
-        String USER = AppConfig.getConfig("USERSQL");
-        String PASS = AppConfig.getConfig("PASSSQL");
+        String USER = AppConfig.getConfig("USER_JDBC");
+        String PASS = AppConfig.getConfig("PASSWORD_JDBC");
         String URL = Routes.databaseUrl;
 
         try {

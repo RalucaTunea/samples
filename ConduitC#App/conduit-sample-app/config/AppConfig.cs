@@ -11,9 +11,8 @@ namespace config
         private string email;
         private string password;
         private string authenticationType;
-        private string connectionUrl;
+        private string dataSourceLocation;
         private string connectionUsername;
-        private string subcriptionId;
         private string typeName;
         private List<string> tables;
         private int partitionColumnsCount;
@@ -21,24 +20,23 @@ namespace config
         private string tableName;
         private string connectorName;
         private string token;
-        static string environment;
+        static string url;
 
         public AppConfig()
         {
             email = getConfig("EMAIL");
             password = getConfig("PASSWORD");
             authenticationType = getConfig("AUTHENTICATION_TYPE");
-            connectionUrl = getConfig("CONNECTION_URL");
+            dataSourceLocation = getConfig("DATA_SOURCE_LOCATION");
             connectionUsername = getConfig("CONNECTION_USERNAME");
-            subcriptionId = getConfig("SUBSCRIPTION_ID");
             typeName = getConfig("TYPE_NAME");
             tables = new List<string>(getConfig("TABLES").Split(','));
-            partitionColumnsCount = Int32.Parse(getConfig("PARTITION_COUNT"));
+            partitionColumnsCount = Int32.Parse(getConfig("PARTITION_COLUMNS_COUNT"));
             isAuthorizationEnabled = Boolean.Parse(getConfig("IS_AUTHORIZATION_ENABLED"));
             tableName = getConfig("TABLE_NAME");
             connectorName = getConfig("CONNECTOR_NAME");
             token = getConfig("TOKEN");
-            environment = getConfig("ENVIRONMENT");
+            url = getConfig("URL");
         }
 
         public string getEmail()
@@ -56,19 +54,14 @@ namespace config
             return authenticationType;
         }
 
-        public string getConnectionUrl()
+        public string getDataSourceConnecion()
         {
-            return connectionUrl;
+            return dataSourceLocation;
         }
 
         public string getConnectionUsername()
         {
             return connectionUsername;
-        }
-
-        public string getSubsriptionId()
-        {
-            return subcriptionId;
         }
 
         public string getTypeName()
@@ -105,8 +98,8 @@ namespace config
             return token;
         }
 
-        public static string getEnvironment(){
-            return environment;
+        public static string getURL(){
+            return url;
         }
         public static String getConfig(String config)
         {

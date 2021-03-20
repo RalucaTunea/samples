@@ -16,7 +16,7 @@ class Connector:
         self.authentication = authentication
 
     def login(self):
-        auth = requests.post(src.consts.url.url_root + '/auth',
+        auth = requests.post(src.consts.url.url + '/auth',
                              json={'email': self.user.get_email(), 'password': self.user.get_password()}, verify=False)
         state_code = int(auth.status_code)
         if state_code != 200:
@@ -55,7 +55,7 @@ class Connector:
 
     def is_datasource_unique(self):
         if self.is_token_valid() is True:
-            datasources_name_response = get_request(src.consts.url.url_root + '/api/metadata/datasourcesNames', None)
+            datasources_name_response = get_request(src.consts.url.url + '/api/metadata/datasourcesNames', None)
 
         without_list_parenthesis = datasources_name_response.text[1:-1]
         list_of_selected_tables = without_list_parenthesis.split(',')

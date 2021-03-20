@@ -8,8 +8,8 @@ public class ExecuteQueryRequest implements IRequest {
 
     private String queryId = "null";
     private String query;
-    private int pageNumber = 0;
-    private int pageSize = 10;
+    private int offset = 0;
+    private int limit = 10;
     private JSONObject jsonObject = new JSONObject();
 
     @Override
@@ -21,8 +21,8 @@ public class ExecuteQueryRequest implements IRequest {
     public JSONObject createPayload() throws JsonProcessingException {
         jsonObject.put("queryId", queryId);
         jsonObject.put("query", query);
-        jsonObject.put("pageNumber", pageNumber);
-        jsonObject.put("pageSize", pageSize);
+        jsonObject.put("offset", offset);
+        jsonObject.put("limit", limit);
         return jsonObject;
     }
 
@@ -42,20 +42,21 @@ public class ExecuteQueryRequest implements IRequest {
         this.query = query;
     }
 
-    public int getPageNumber() {
-        return pageNumber;
+    public int getOffset() {
+        return offset;
     }
 
-    public void setPageNumber(int pageNumber) {
-        this.pageNumber = pageNumber;
+    public void setOffset(int offset) {
+        this.offset = offset;
     }
 
-    public int getPageSize() {
-        return pageSize;
+    public int getLimit() {
+        return limit;
     }
 
-    public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
+    public void setLimit(int limit) {
+        this.limit = limit;
     }
 }
+
 

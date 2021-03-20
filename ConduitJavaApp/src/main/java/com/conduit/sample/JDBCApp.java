@@ -38,9 +38,9 @@ public class JDBCApp {
         }
         ConduitDBRequestService<List<ExploreRequest>> dbRequestService = new ConduitDBRequestService(apiClient);
 
-        dbRequestService.setDbRequest(appConfig.getAuthenticationType(), appConfig.getPassword(), appConfig.getConnectionUrl(), appConfig.getConnectionUsername(), appConfig.getDescription(), appConfig.getConnectorName(), appConfig.getNamespace(), appConfig.getSubscriptionId());
+        dbRequestService.setDbRequest(appConfig.getAuthenticationType(), appConfig.getPassword(), appConfig.getDataSourceLocation(), appConfig.getConnectionUsername(), appConfig.getDescription(), appConfig.getConnectorName());
         List<ExploreRequest> dbResponse = dbRequestService.getResponseFromDB(dbRequestService.getDbRequest());
-        createConnectorService.setCreateConnectorRequest(dbResponse, dbRequestService.getDbRequest(), appConfig.getTypeName(), appConfig.getTables(), appConfig.getAuthenticationType(), appConfig.getSpecificColumns(), appConfig.getAuthorizationEnabled(), appConfig.getUserSubscription());
+        createConnectorService.setCreateConnectorRequest(dbResponse, dbRequestService.getDbRequest(), appConfig.getTypeName(), appConfig.getTables(), appConfig.getAuthenticationType(), appConfig.getPartitionColumnsCount(), appConfig.getAuthorizationEnabled());
         String resultOfCreateConnector = createConnectorService.createConnector().toString();
         LOGGER.info("Create Connector Response: {}", resultOfCreateConnector);
 

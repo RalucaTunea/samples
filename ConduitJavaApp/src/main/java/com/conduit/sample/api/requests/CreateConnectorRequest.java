@@ -28,7 +28,7 @@ public class CreateConnectorRequest<T> implements IRequest {
         return jsonObject;
     }
 
-    public void setCreateConnectorRequest(T response, DBRequest dbRequest, String typeName, List<String> tablesname, String authenticationType, int specificColumns, Boolean isAuthorizationEnabled, String userSubscription) throws JsonProcessingException {
+    public void setCreateConnectorRequest(T response, DBRequest dbRequest, String typeName, List<String> tablesname, String authenticationType, int specificColumns, Boolean isAuthorizationEnabled) throws JsonProcessingException {
         connector.setName(dbRequest.getName());
 
         List<ExploreRequest> exploreRequest = (List<ExploreRequest>) response;
@@ -46,7 +46,7 @@ public class CreateConnectorRequest<T> implements IRequest {
         connector.setAuthenticationRadios();
         connector.setDatabaseValue();
         connector.setDataSourceConnection();
-        connector.setUserSubscription(userSubscription);
+        connector.setUserSubscription("");
         connector.setAdSubscriptions();
 
         if (isAuthorizationEnabled)

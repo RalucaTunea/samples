@@ -11,7 +11,7 @@ public class DBRequest implements IRequest {
     String description;
     String name;
     String namespace = "default";
-    String subscriptionId;
+    String subscriptionId="";
 
     private JSONObject jsonObject = new JSONObject();
 

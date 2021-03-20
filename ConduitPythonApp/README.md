@@ -1,57 +1,59 @@
-#Project Setup
-The conduit server is needed to be in run mode.
-For more information about how to setup the server of conduit or how to run it, please see bde/README.md
-
-#Packages
-
->> /lib file contains the jar that is needed to run the queries for app-jdbc.py
-You can add the jar file from --> https://bpartifactstorage.blob.core.windows.net/hive-jdbc-driver/conduit_utils.jar
-
->> /api contains the classes with the information needed to create the payload for requests
-
->> /interfaces contains the main functionalities for creating a connector
+### Python Conduit Sample App
+#### Project Structure
+[>> api](src/api) - contains the classes with the information needed to create the payload for requests
+[>> consts](src/consts) - contains the paths for the URL root and the payloads that will be modified to sent the requests
+[>>interfaces](src/interfaces) - contains the main functionalities for creating a connector
             - here you can set the authentication and user information
-            - sets the login 
-
->> /payload contains the payloads added as default that will be modified to send for request
-
->> /request sets the payload with the information from the user which is used to create the connector request
-
->> /service(connector_service, query_sql_service and query_service) contains the logic that is needed to:
+            - sets the login with user and password
+[>>payload](src/payload) - contains the payloads that will modified when sending the requests
+[>>request](src/request) - sets the payload with the information from the user which is used to create the connector request
+[>>service](src/service) - contains the logic that is needed to:
             - set the connector and create the datasource for it
             - basic logic for executing queries using the jaydebeapi library and via REST Api
+[>>lib](src/lib) - file contains the jar that is needed to run the queries You can add the jar file from --> https://bpartifactstorage.blob.core.windows.net/hive-jdbc-driver/conduit_utils.jar
 
->> /app_jdbc is the main class where we execute queries using the jaydebeapi library and where we:
-            -set the information for the user
-            -call commands for setting and creating the connector
-            -call the methods for executing queries
+#### Main elements of the App
+There are two App classes in the project (app-jdbc and app-rest). Both of them are executing the same Conduit interaction,
+the difference being the way they use to execute it. Both apps:
 
->> /app_rest is basically the same as app_jdbc.py, but the queries are sent via REST Api
- 
-#Run
-##IMPORTANT!
-For running the program the user should set each variable in the command line and run the program with the python command
-Example:
->API_USER="example@bpcs.com" API_PASS='password' OAUTH_TOKEN="example-token" CONN_USER="user" CONN_PASS='pass' AUTH_TYPE="authentication_without_impersonation" 
-CONNECTOR_NAME="test1" URL="url" TABLE_NAME="" URL_ROOT= www.example.com HOST="example-host-domain" PORT="example-endpoint-port" python3 app-jdbc.py
+- configure the sample based on user input
+- execute the entire flow(login, db, requests, connector creation, connector querying)
 
->>API_USER="example@bpcs.com" API_PASS='password' OAUTH_TOKEN="example-token" CONN_USER="user" CONN_PASS='pass' AUTH_TYPE="authentication_without_impersonation" 
-CONNECTOR_NAME="test1" URL="url" TABLE_NAME="" URL_ROOT= www.example.com python3 app-rest.py
+The app-jdbc class is the main JDBC class, it achieves Conduit interaction by making use of the JDBC endpoint offered by Conduit.
 
->>The authentication can be done by using the auth login with API_USER and API_PASS or by using the AD TOKEN and then the API_USER and API_PASSWORD can be None
+The app-rest class is the main REST API class, it achieves Conduit interaction by making use of Conduit's REST API.
 
-AUTH_TYPE="authentication_without_impersonation" --> for setting an authentication without impersonation connector
-TABLE_NAME="" --> this is the table that should be used for the example presented in app.py and app_rest_api.py
+####Running
 
-#The rest of the variables should be entered by the user!!
+In order to run either app we need to configure ENV Variables. The environment variables used to run are:
+- API_USER - used for logging in with a Conduit user
+  e.g API_USER=mail@bpcs.com
+- API_PASS - password for the Conduit user
+  e.g API_PASS=mypassword
+- OAUTH_TOKEN - AD user Access Token
+  e.g OAUTH_TOKEN=yshbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjcmVhdGVk98698Om51bGwsImNyZWF0ZWRCeSI6bnVsb344gc
+- TABLE_NAME - database's tables
+  e.g TABLE_NAME=TABLE1,TABLE2
+- AUTH_TYPE - authentication type
+  e.g AUTH_TYPE=anonymous_with_impersonation
+- DATA_SOURCE_LOCATION - date set location when create a connector
+  e.g DATA_SOURCE_LOCATION=localhost:1400/databaseName
+- USER - database's username
+  e.g USER=dataSourceUserName
+- PASS - database's password
+  e.g PASS= password for database
+- CONNECTOR_NAME - used to specify a name to connector
+  e.g CONNECTOR_NAME="connector_name"
+- URL - location of the Conduit server
+  e.g URL=https://environment.com
 
-After running the Main class from app-jdbc.py we receive:
-            -the "INFO:root:200" if the connector was created successfully
-            -the "ERROR:root:The connector was already created, please create another connector!" if the name of the 
-            connector is the same with a connector already created and you need to change it in order for the app to run
-            -the message "Assertion was successful!" or "Assertion error" if the assertion was not successful
+And for JDBC test:
+- HOST -location of the Conduit server provided for jdbc endpoint
+  e.g URL=environment.com
+- PORT - port number for jdbc endpoint
+#### Logging
+Logging involves either INFO messages or WARNING messages
 
-After running the Main class from app-rest.py we receive:
-            -"DEBUG:root:200" if the queries were sent successfully
-            -the "ERROR:root:The connector was already created, please create another connector!" if the name of the 
-            connector is the same with a connector already created and you need to change it in order for the app to run
+#### AD authentication
+When running the sample app the user has the choice to authenticate with a standard Conduit user (by giving the API_USER and API_PASS env variables), or with an AD user.
+The later scenario requires the access token which the user obtains by logging into the Conduit management console in a browser and copying the Access Token into the OAUTH_TOKEN environment variable.

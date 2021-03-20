@@ -1,6 +1,6 @@
 import urllib3
 
-from src.consts.url import url_root
+from src.consts.url import url
 from src.utils.requests_utils import *
 import logging
 import json
@@ -12,7 +12,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 class QueryService:
 
     def query_response(self, data):
-        query_response = post_request(url_root + '/query/execute', data)
+        query_response = post_request(url + '/query/execute', data)
         json_object = json.loads(query_response.text)
 
         if (json_object['status'] == 'Running'):
@@ -26,5 +26,5 @@ class QueryService:
         return json_object
 
     def query_result(self, id):
-        query_result = get_request(url_root + '/query/execute/' + id + '/result', None)
+        query_result = get_request(url + '/query/execute/' + id + '/result', None)
         return query_result
