@@ -7,7 +7,7 @@ namespace routes
         public static string dbRequestURL = urlRoot + "/api/metadata/explore/oracle";
         public static string datasourceNameURL = urlRoot + "/api/metadata/datasourcesNames";
         public static string loginURL = urlRoot + "/auth";
-        public static string metadataAll = urlRoot + "/query/metadata/all";
-        public static string queryURL = urlRoot + "/query/execute";
+        public static string metadataAll = urlRoot + "/api/metadata/all";
+        public static string queryURL = urlRoot + "/api/query/execute";
     }
 }

@@ -99,11 +99,11 @@ public class AppConfig {
         return tokenUser;
     }
 
-    public String getUserSQL() {
+    public String getUserJDBC() {
         return userJDBC;
     }
 
-    public String getPassSQL() {
+    public String getPassJDBC() {
         return passJDBC;
     }
 
@@ -113,7 +113,7 @@ public class AppConfig {
 
     public static String getConfig(String config) {
         String configValue = System.getProperty(config);
-        if (configValue.isEmpty() && !config.equals("TOKEN")) {
+        if (!config.equals("TOKEN") && configValue.equals("")) {
             LOGGER.warn(config + " is null. Please insert it.");
         }
         return configValue;

@@ -12,12 +12,13 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 class QueryService:
 
     def query_response(self, data):
-        query_response = post_request(url + '/query/execute', data)
+        query_response = post_request(url + '/api/query/execute', data)
         json_object = json.loads(query_response.text)
 
         if (json_object['status'] == 'Running'):
             query_result = self.query_result(json_object['queryId'])
             json_result = json.loads(query_result.text)
+            print("JSON RESULT"+json_result)
             while (json_result['status'] == 'Running'):
                 query_result = self.query_result(json_object['queryId'])
                 json_result = json.loads(query_result.text)
@@ -26,5 +27,5 @@ class QueryService:
         return json_object
 
     def query_result(self, id):
-        query_result = get_request(url + '/query/execute/' + id + '/result', None)
+        query_result = get_request(url + '/api/query/execute/' + id + '/result', None)
         return query_result

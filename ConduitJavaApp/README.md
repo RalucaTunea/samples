@@ -64,10 +64,10 @@ The later scenario requires the access token which the user obtains by logging i
 
 Full command template:
 ``` 
-java -DEMAIL=email@bpcs.com -DPASSWORD=password -DTABLES=table1,table2 -DAUTHENTICATION_TYPE=anonymous_with_impersonation -DATA_SOURCE_LOCATION=localhost:1400/databaseName -DUSERNAME=dataSourceUserName -DDESCRIPTION=shortDescription -DCONNECTOR_NAME=connector_name -DTYPE_DATABASE=oracle -DPARTITION_COLUMNS_COUNT=4 -DIS_AUTHORIZATION=false -DTOKEN= -DUSER_JDBC=JDBCName -DPASSWORD_JDBC=JDBCPassword -DURL=https://environment.com -DJDBC_URL=jdbc:hive2://environment.com:10002/;transportMode=http;httpPath=cliservice;ssl=true com.conduit.sample.RESTApp
+java -DEMAIL=email@bpcs.com -DPASSWORD=password -DTABLES=table1,table2 -DAUTHENTICATION_TYPE=anonymous_with_impersonation -DDATA_SOURCE_LOCATION=localhost:1400/databaseName -DUSERNAME=dataSourceUserName -DDESCRIPTION=shortDescription -DCONNECTOR_NAME=connector_name -DTYPE_DATABASE=oracle -DPARTITION_COLUMNS_COUNT=4 -DIS_AUTHORIZATION=false -DTOKEN= -DUSER_JDBC=JDBCName -DPASSWORD_JDBC=JDBCPassword -DURL=https://environment.com -DJDBC_URL=jdbc:hive2://environment.com:10002/;transportMode=http;httpPath=cliservice;ssl=true com.conduit.sample.RESTApp
 ```
 
 Command to use application with active directory authentication:
 ```
-java -DEMAIL=email@bpcs.com -DPASSWORD=password -DTABLES=table1,table2 -DAUTHENTICATION_TYPE=anonymous_with_impersonation -DATA_SOURCE_LOCATION=localhost:1400/databaseName -DUSERNAME=dataSourceUserName -DDESCRIPTION=shortDescription -DCONNECTOR_NAME=connector_name -DTYPE_DATABASE=oracle -DPARTITION_COLUMNS_COUNT=4 -DIS_AUTHORIZATION=false -DTOKEN=yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjcmVhdGVk98698Om51bGwsImNyZWF0ZWRCeSI6bnVsb344 -DUSER_JDBC=JDBCName -DPASSWORD_JDBC=JDBCPassword -DURL=https://environment.com -DJDBC_URL=jdbc:hive2://environment.com:10002/;transportMode=http;httpPath=cliservice;ssl=true com.conduit.sample.RESTApp
+java -DEMAIL=email@bpcs.com -DPASSWORD=password -DTABLES=table1,table2 -DAUTHENTICATION_TYPE=anonymous_with_impersonation -DDATA_SOURCE_LOCATION=localhost:1400/databaseName -DUSERNAME=dataSourceUserName -DDESCRIPTION=shortDescription -DCONNECTOR_NAME=connector_name -DTYPE_DATABASE=oracle -DPARTITION_COLUMNS_COUNT=4 -DIS_AUTHORIZATION=false -DTOKEN=yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjcmVhdGVk98698Om51bGwsImNyZWF0ZWRCeSI6bnVsb344 -DUSER_JDBC=JDBCName -DPASSWORD_JDBC=JDBCPassword -DURL=https://environment.com -DJDBC_URL=jdbc:hive2://environment.com:10002/;transportMode=http;httpPath=cliservice;ssl=true com.conduit.sample.RESTApp
 ```
